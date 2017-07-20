@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
@@ -15,6 +9,10 @@ import reducers from '../reducers/PeopleReducer';
 import Thunk from 'redux-thunk';
 import SalesOrderList from './SalesOrderList';
 import SalesOrderBox from './SalesOrderBox';
+import SalesOrderItem from './SalesOrderItem';
+import SalesOrderDetails from './SalesOrderDetails';
+import AppNavigator from '../../index.ios'
+import { StackNavigator } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +39,7 @@ export default class App extends Component {
       }
     }
   render() {
+
     return (
       <Provider store={store}>
           <View style={styles.container}>

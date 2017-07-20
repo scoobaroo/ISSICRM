@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, Button, View, StyleSheet, Image, TouchableHighlight } from 'react-native';
+import { Text, Button, View, StyleSheet, Image, TouchableHighlight, NavigatorIOS } from 'react-native';
 import { connect } from 'react-redux';
 import { getTheme } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as actions from '../actions';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 import Loader from './Loader';
+import { StackNavigator } from 'react-navigation';
 
 const theme = getTheme();
 
@@ -34,34 +35,44 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize : 14,
-    fontWeight: 'bold'
+    fontWeight:'bold'
+  },
+  labelText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'darkred'
   }
 });
 
 class SalesOrderBox extends Component {
   constructor(props){
     super(props);
-    this.state={
-      issisalesmanager: this.props.issisalesmanager,
-      issisalesperson: this.props.issisalesperson,
-      salesorderid: this.props.salesorderid,
-      customer: this.props.customer,
-      endcustomer: this.props.endcustomer,
-      orderstatus: this.props.orderstatus,
-    }
+    this.onPress = this._onPress.bind(this);
+  }
+  _onPress() {
+    console.log('navigating to SalesOrderItem!');
+    navigate('SalesOrderItem', {});
   }
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <TouchableHighlight
+        onPress = {this._onPress}
         underlayColor='black'
         activeOpacity={0.7}>
         <View style = {styles.button}>
-          <Text style={styles.buttonText}> ISSI Sales Manager: {this.state.salesorder.issisalesmanager} </Text>
-          <Text style={styles.buttonText}> ISSI Sales Person: {this.state.salesorder.issisalesperson} </Text>
-          <Text style={styles.buttonText}> Sales Order ID: {this.state.salesorder.salesorderid} </Text>
-          <Text style={styles.buttonText}> Bill-to Customer: {this.state.salesorder.customer} </Text>
-          <Text style={styles.buttonText}> End Customer: {this.state.salesorder.endcustomer} </Text>
-          <Text style={styles.buttonText}> Order Status: {this.state.salesorder.orderstatus} </Text>
+          <Text style={styles.labelText}> Sales Order ID: </Text>
+          <Text style={styles.buttonText}>  {this.props.salesorder.salesorderid} </Text>
+          <Text style={styles.labelText}> ISSI Sales Manager: </Text>
+          <Text style={styles.buttonText}> {this.props.salesorder.issisalesmanager} </Text>
+          <Text style={styles.labelText}> ISSI Sales Person: </Text>
+          <Text style={styles.buttonText}> {this.props.salesorder.issisalesperson} </Text>
+          <Text style={styles.labelText}> Bill-to Customer: </Text>
+          <Text style={styles.buttonText}> {this.props.salesorder.customer} </Text>
+          <Text style={styles.labelText}> End Customer:  </Text>
+          <Text style={styles.buttonText}> {this.props.salesorder.endcustomer} </Text>
+          <Text style={styles.labelText}> Order Status: </Text>
+          <Text style={styles.buttonText}> {this.props.salesorder.orderstatus} </Text>
         </View>
       </TouchableHighlight>
     );

@@ -6,7 +6,7 @@ import SalesOrderList from './SalesOrderList';
 import SalesOrderItem from './SalesOrderItem';
 import SalesOrderDetails from './SalesOrderDetails';
 
-const Navigation = TabNavigator({
+const Navigation = StackNavigator({
     PeopleList: { screen: PeopleList },
     AddPerson: { screen: AddPerson },
     CompanyList: { screen: CompanyList },

@@ -1,14 +1,15 @@
-import React from 'react';
-import { Text, View, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native';
+import React, {Component} from 'react';
+import { Text, View, StyleSheet, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { getTheme } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as actions from '../actions';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 import Loader from './Loader';
+import SalesOrderDetails from './SalesOrderDetails';
 
 const ApprovalButton = MKButton.coloredButton()
-  .withBackgroundColor(MKColor.Teal)
+  .withBackgroundColor(MKColor.Blue)
   .withText('APPROVE')
   .build();
 
@@ -21,40 +22,48 @@ const RejectButton = MKButton.coloredButton()
 const theme = getTheme();
 
 const styles = StyleSheet.create({
-  card: {
-    marginTop: 20,
+  container:{
+    alignItems: 'center',
+    marginTop: 20
   },
-  title: {
-      top: 20,
-      left: 80,
-      fontSize: 24,
+  baseText: {
+    fontSize : 14,
+    fontWeight:'bold'
   },
-  image: {
-      height: 100,
-  },
-  action: {
-      backgroundColor: 'black',
-      color: 'white',
-  },
-  icon: {
-      position: 'absolute',
-      top: 15,
-      left: 0,
-      color: 'white',
-      backgroundColor: 'rgba(255,255,255,0)',
-  },
+  labelText: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'darkred'
+  }
 });
 
-const SalesOrderItem = (props) => {
+class SalesOrderItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  approve(){
+    console.log('approved!');
+  }
+  reject(){
+    console.log('rejected');
+  }
+  static navigationOptions = {
+    title: 'Sales Order Item',
+  };
+  render(){
     return (
-        <ScrollView
-            onPress={() => props.selectSalesOrder(props.salesorder)}
-        >
-            <ApprovalButton onPress = {approve} />
-            <RejectButton onPress = {reject} />
-            <SalesOrderDetails salesorderid={props.salesorder.salerorderid} />
-        </ScrollView>
+            <ScrollView
+              contentContainerStyle={styles.container}
+              onPress={() => props.selectSalesOrder(props.salesorder)}>
+              <Text style={styles.labelText}> Sales Order ID</Text>
+              <Text style={styles.baseText}> XXXXXX </Text>
+              <ApprovalButton onPress ={this.approve} />
+              <RejectButton onPress ={this.reject} />
+              <SalesOrderDetails />
+            </ScrollView>
     );
+  }
 };
 
 export default connect(null, actions)(SalesOrderItem);

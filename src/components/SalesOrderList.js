@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ListView } from 'react-native';
+import { Text, View, StyleSheet, ListView, NavigatorIOS } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import SalesOrderDetails from './SalesOrderDetails';
 import { loadInitialSalesOrders } from '../actions';
 import SalesOrderBox from './SalesOrderBox';
+import { StackNavigator } from 'react-navigation';
 
 var sampleSalesOrderRequest = require('../reducers/sampleSalesOrderRequest.json');
 console.log(sampleSalesOrderRequest);
+sampleSalesOrderRequest.map((order)=>{
+  order.issisalesmanager = order.am_SalesManager.Name;
+  order.issisalesperson = order.am_ISSISalesPerson.Name;
+  order.salesorderid = order.SalesOrderId;
+  order.customer = order.CustomerId.Name;
+  order.endcustomer = order.am_EndCustomer.Name;
+  order.orderstatus = order.am_OrderStatus.Value;
+  return order
+});
 const styles = StyleSheet.create({
   baseText: {
     paddingLeft: 0,
@@ -27,21 +37,23 @@ const styles = StyleSheet.create({
   }
 });
 class SalesOrderList extends Component {
-    constructor(props){
-      super(props);
-      this.state= {
-        issisalesmanager: this.props.issisalesmanager,
-        issisalesperson: this.props.issisalesperson,
-        salesorderid: this.props.salesorderid,
-        customer: this.props.customer,
-        endcustomer: this.props.endcustomer,
-        orderstatus: this.props.orderstatus,
-        loading:false
-      }
+  constructor(props){
+    super(props);
+    this.state= {
+      sampleSalesOrderRequest,
+      // issisalesmanager: this.props.issisalesmanager,
+      // issisalesperson: this.props.issisalesperson,
+      // salesorderid: this.props.salesorderid,
+      // customer: this.props.customer,
+      // endcustomer: this.props.endcustomer,
+      // orderstatus: this.props.orderstatus,
+      loading:false
     }
-    static navigationOptions = {
-        tabBarLabel: 'Sales Orders List',
-    }
+  }
+
+  static navigationOptions = {
+      title: 'Sales Orders',
+  }
 
     // componentWillMount() {
     //   this.props.loadInitialSalesOrders();
@@ -52,41 +64,24 @@ class SalesOrderList extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2,
     });
     this.dataSource = ds.cloneWithRows(sampleSalesOrderRequest);
-
-    if (this.props.detailView === true) {
-      return (
-        <SalesOrderDetails />
-      );
-    } else {
-      return (
+    return (
         <ListView
           enableEmptySections={true}
           dataSource={this.dataSource}
-          renderRow={(rowData) =>
-            <View>
-              <SalesOrderBox salesorder={rowData} />
-            </View>
+          renderRow={
+            (rowData) =>
+              <SalesOrderBox
+                navigation={this.props.navigation}
+                salesorder={rowData} />
           }
         />
       );
-    }
   }
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style = {styles.container}>
         {this.renderInitialView()}
-        {/* <View style={styles.titleText}>
-          <Text style={styles.titleText}> Sales Orders </Text>
-        </View>
-        <View style={styles.baseText}>
-          <SalesOrderBox salesorder={this.state} />
-          <Text style={styles.baseText}> ISSI Sales Manager: {this.props.issisalesmanager} </Text>
-          <Text style={styles.baseText}> ISSI Sales Person: {this.props.issisalesperson} </Text>
-          <Text style={styles.baseText}> Sales Order ID: {this.props.salesorderid} </Text>
-          <Text style={styles.baseText}> Bill-to Customer: {this.props.customer} </Text>
-          <Text style={styles.baseText}> End Customer: {this.props.endcustomer} </Text>
-          <Text style={styles.baseText}> Order Status: {this.props.orderstatus} </Text>
-        </View> */}
       </View>
     );
   }
@@ -103,14 +98,14 @@ SalesOrderList.defaultProps = {
 
 
 const mapStateToProps = state => {
-  const salesorders = _.map(state.salesorders, (val, uid) => {
+  const salesorders = _.map(state.sampleSalesOrderRequest, (val, uid) => {
     return { ...val, uid};
   });
 
   return {
-    salesorders,
+    sampleSalesOrderRequest,
     detailView: state.detailView,
  };
 };
 
-export default connect(mapStateToProps, { loadInitialSalesOrders })(SalesOrderList);
+export default connect(mapStateToProps)(SalesOrderList);

@@ -15,6 +15,7 @@ import * as actions from '../actions';
 import DetailsView from './DetailsView';
 
 var sampleSalesOrderDetails = require('../reducers/sampleSalesOrderDetails.json');
+console.log(sampleSalesOrderDetails);
 
 const theme = getTheme();
 
@@ -100,7 +101,7 @@ class SalesOrderDetails extends Component {
   render() {
     return (
       <View>
-        <DetailsView />
+        <Text> Sales Order Details </Text>
       </View>
     );
   }
