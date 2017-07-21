@@ -12,7 +12,6 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 import { MKTextField, MKColor, MKButton} from 'react-native-material-kit';
 import * as actions from '../actions';
-import DetailsView from './DetailsView';
 
 var sampleSalesOrderDetail = require('../reducers/sampleSalesOrderDetails.json');
 console.log(sampleSalesOrderDetail);
@@ -42,6 +41,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 35,
     width: 125
+  },
+  title:{
+    fontSize: 24,
+    fontWeight: 'bold'
   }
 });
 class SalesOrderDetail extends Component {
@@ -60,6 +63,7 @@ class SalesOrderDetail extends Component {
   render() {
     return (
       <View style = {styles.container}>
+        <Text style = {styles.title}> Sales Order Details </Text>
         <Text style= {styles.labelText}> Sales Order Detail ID </Text>
         <Text style = {styles.baseText}> {this.state.salesorderdetailid} </Text>
         <Text style= {styles.labelText}> Sales Product </Text>

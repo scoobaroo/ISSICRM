@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'
 import Login from './Login';
 import Loader from './Loader';
-import reducers from '../reducers/PeopleReducer';
+import reducers from '../reducers/SalesOrderReducer';
 import Thunk from 'redux-thunk';
 import AppNavigator from '../../index.ios'
 import { StackNavigator } from 'react-navigation';
@@ -34,7 +34,7 @@ export default class App extends Component {
       case false:
         return <Login />;
       default:
-        return <AppNavigator navigation={this.props.navigation}/>;
+        return <AppNavigator />;
     }
   }
   render() {
