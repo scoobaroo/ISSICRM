@@ -7,8 +7,8 @@ import SalesOrderList from './src/components/SalesOrderList';
 import SalesOrderItem from './src/components/SalesOrderItem';
 
 const AppNavigator = StackNavigator({
-  SalesOrderList : { screen: SalesOrderList },
-  SalesOrderItem : { screen: SalesOrderItem }
+  SalesOrderListScreen : { screen: SalesOrderList },
+  SalesOrderItemScreen : { screen: SalesOrderItem }
 });
 
 AppRegistry.registerComponent('issicrm', () => AppNavigator);

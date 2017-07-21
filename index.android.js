@@ -13,7 +13,8 @@ import SalesOrderList from './src/components/SalesOrderList';
 import SalesOrderItem from './src/components/SalesOrderItem';
 
 const AppNavigator = StackNavigator({
-  SalesOrderList: { screen: SalesOrderList },
-  SalesOrderItem: { screen: SalesOrderItem }
+  SalesOrderList : { screen: SalesOrderList },
+  SalesOrderItem : { screen: SalesOrderItem }
 });
-AppRegistry.registerComponent('issicrm', () => App);
+
+AppRegistry.registerComponent('issicrm', () => AppNavigator);

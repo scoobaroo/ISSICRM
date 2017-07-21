@@ -45,21 +45,23 @@ const styles = StyleSheet.create({
 });
 
 class SalesOrderBox extends Component {
+  static navigationOptions = ({navigation}) => ({
+    SalesOrderItem: <SalesOrderItem
+                      navigation={navigation} />,
+  })
   constructor(props){
     super(props);
-    this.onPress = this._onPress.bind(this);
-  }
-  _onPress() {
-    console.log('navigating to SalesOrderItem!');
-    navigate('SalesOrderItem', {});
   }
   render() {
+    let salesorder = this.props.salesorder;
     const { navigate } = this.props.navigation;
     return (
       <TouchableHighlight
-        onPress = {this._onPress}
+        onPress={() =>
+          navigate('SalesOrderItemScreen', {salesorder: salesorder})}
         underlayColor='black'
-        activeOpacity={0.7}>
+        activeOpacity={0.7}
+        navigation = {this.props.navigation}>
         <View style = {styles.button}>
           <Text style={styles.labelText}> Sales Order ID: </Text>
           <Text style={styles.buttonText}>  {this.props.salesorder.salesorderid} </Text>
@@ -79,4 +81,5 @@ class SalesOrderBox extends Component {
   }
 };
 
-export default connect(null, actions)(SalesOrderBox);
+// export default connect(null, actions)(SalesOrderBox);
+export default SalesOrderBox;

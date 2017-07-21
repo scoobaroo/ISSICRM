@@ -4,13 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'
 import Login from './Login';
 import Loader from './Loader';
-import Navigation from './Navigation';
 import reducers from '../reducers/PeopleReducer';
 import Thunk from 'redux-thunk';
-import SalesOrderList from './SalesOrderList';
-import SalesOrderBox from './SalesOrderBox';
-import SalesOrderItem from './SalesOrderItem';
-import SalesOrderDetails from './SalesOrderDetails';
 import AppNavigator from '../../index.ios'
 import { StackNavigator } from 'react-navigation';
 
@@ -26,18 +21,22 @@ const styles = StyleSheet.create({
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
   state = { loggedIn: null};
 
-    renderInitialView() {
-      switch (this.state.loggedIn) {
-        case true:
-          return <Navigation />
-        case false:
-          return <Login />;
-        default:
-          return <SalesOrderList />;
-      }
+  renderInitialView() {
+    switch (this.state.loggedIn) {
+      case true:
+        return <AppNavigator />
+      case false:
+        return <Login />;
+      default:
+        return <AppNavigator navigation={this.props.navigation}/>;
     }
+  }
   render() {
 
     return (

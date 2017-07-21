@@ -3,7 +3,6 @@ import { Text, View, StyleSheet, ListView, NavigatorIOS } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import SalesOrderDetails from './SalesOrderDetails';
 import { loadInitialSalesOrders } from '../actions';
 import SalesOrderBox from './SalesOrderBox';
 import { StackNavigator } from 'react-navigation';
@@ -34,6 +33,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexWrap: 'wrap',
+  },
+  contentContainer: {
+    paddingBottom: 5
   }
 });
 class SalesOrderList extends Component {
@@ -51,10 +53,9 @@ class SalesOrderList extends Component {
     }
   }
 
-  static navigationOptions = {
-      title: 'Sales Orders',
-  }
-
+  static navigationOptions = ({navigation}) => ({
+    title: 'Sales Orders',
+  })
     // componentWillMount() {
     //   this.props.loadInitialSalesOrders();
     // }
@@ -66,11 +67,14 @@ class SalesOrderList extends Component {
     this.dataSource = ds.cloneWithRows(sampleSalesOrderRequest);
     return (
         <ListView
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={styles.contentContainer}
           enableEmptySections={true}
           dataSource={this.dataSource}
           renderRow={
             (rowData) =>
               <SalesOrderBox
+                marginBottom = {5}
                 navigation={this.props.navigation}
                 salesorder={rowData} />
           }
@@ -87,16 +91,6 @@ class SalesOrderList extends Component {
   }
 }
 
-SalesOrderList.defaultProps = {
-  issisalesmanager: sampleSalesOrderRequest[0].am_SalesManager.Name,
-  issisalesperson: sampleSalesOrderRequest[0].am_ISSISalesPerson.Name,
-  salesorderid: sampleSalesOrderRequest[0].SalesOrderId,
-  customer: sampleSalesOrderRequest[0].CustomerId.Name,
-  endcustomer: sampleSalesOrderRequest[0].am_EndCustomer.Name,
-  orderstatus: sampleSalesOrderRequest[0].am_OrderStatus.Value
-}
-
-
 const mapStateToProps = state => {
   const salesorders = _.map(state.sampleSalesOrderRequest, (val, uid) => {
     return { ...val, uid};
@@ -108,4 +102,5 @@ const mapStateToProps = state => {
  };
 };
 
-export default connect(mapStateToProps)(SalesOrderList);
+// export default connect(mapStateToProps, {loadInitialSalesOrders})(SalesOrderList);
+export default SalesOrderList;
