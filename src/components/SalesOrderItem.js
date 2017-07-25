@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, StyleSheet, Image, ListView, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { getTheme } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/EvilIcons';
@@ -7,6 +7,17 @@ import * as actions from '../actions';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 import Loader from './Loader';
 import SalesOrderDetail from './SalesOrderDetail';
+
+var sampleSalesOrderDetail = require('../reducers/sampleSalesOrderDetails2.json');
+sampleSalesOrderDetail.map((detail)=>{
+  detail.product = detail.ProductId.Name;
+  detail.devicespa = detail.new_DeviceSPA.Name;
+  detail.quantity = detail.Quantity;
+  detail.priceperunit = detail.PricePerUnit.Value;
+  detail.amount = detail.BaseAmount_Base.Value;
+  detail.salesorderid = detail.SalesOrderId.Id;
+  detail.salesorderdetailid = detail.SalesOrderDetailId;
+});
 
 const ApprovalButton = MKButton.coloredButton()
   .withBackgroundColor(MKColor.Blue)
@@ -52,7 +63,9 @@ const styles = StyleSheet.create({
 class SalesOrderItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      salesorderdetail: sampleSalesOrderDetail
+    };
   }
   approve(){
     console.log('approved!');
@@ -63,6 +76,30 @@ class SalesOrderItem extends Component {
   static navigationOptions = {
     title: 'Sales Order Item',
   };
+  componentDidMount(){
+    //make XMLHTTPRequest for sample request details set matching sales order id of sales order item
+  }
+  renderInitialView() {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => true,
+    });
+    this.dataSource = ds.cloneWithRows(sampleSalesOrderDetail);
+    return (
+        <ListView
+          automaticallyAdjustContentInsets={false}
+          contentContainerStyle={styles.contentContainer}
+          enableEmptySections={true}
+          dataSource={this.dataSource}
+          renderRow={
+            (rowData) =>
+              <SalesOrderDetail
+                marginBottom = {5}
+                navigation={this.props.navigation}
+                salesorderdetail={rowData} />
+          }
+        />
+      );
+  } 
   render(){
     return (
       <ScrollView
@@ -85,7 +122,7 @@ class SalesOrderItem extends Component {
           <ApprovalButton style = {styles.button} onPress ={this.approve} />
           <RejectButton style = {styles.button} onPress ={this.reject} />
         </View>
-        <SalesOrderDetail />
+        {this.renderInitialView()}
       </ScrollView>
   );
   }

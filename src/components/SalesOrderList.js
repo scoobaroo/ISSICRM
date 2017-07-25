@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/EvilIcons';
 import { loadInitialSalesOrders } from '../actions';
 import SalesOrderBox from './SalesOrderBox';
 import { StackNavigator } from 'react-navigation';
+import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 
 var sampleSalesOrderRequest = require('../reducers/sampleSalesOrderRequest.json');
 console.log(sampleSalesOrderRequest);
@@ -18,6 +19,7 @@ sampleSalesOrderRequest.map((order)=>{
   order.orderstatus = order.am_OrderStatus.Value;
   return order
 });
+
 const styles = StyleSheet.create({
   baseText: {
     paddingLeft: 0,
@@ -36,19 +38,50 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: 5
-  }
+  },
+  button : {
+    width:80,
+    height:60,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection:'row'
+  },
 });
+
+
+const AllButton = MKButton.coloredButton()
+  .withBackgroundColor(MKColor.Blue)
+  .withText('ALL')
+  .build();
+
+const DraftButton = MKButton.coloredButton()
+  .withText('DRAFT')
+  .withBackgroundColor(MKColor.Red)
+  .build();
+
+const SalesPersonButton = MKButton.coloredButton()
+  .withText('IN REVIEW-SALESPERSON')
+  .withBackgroundColor(MKColor.Yellow)
+  .build();
+
+const SalesManagerButton = MKButton.coloredButton()
+  .withText('IN REVIEW-SALESMANAGER')
+  .withBackgroundColor(MKColor.Orange)
+  .build();
+
+const ds = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => true,
+});
+
 class SalesOrderList extends Component {
   constructor(props){
     super(props);
     this.state= {
       sampleSalesOrderRequest,
-      // issisalesmanager: this.props.issisalesmanager,
-      // issisalesperson: this.props.issisalesperson,
-      // salesorderid: this.props.salesorderid,
-      // customer: this.props.customer,
-      // endcustomer: this.props.endcustomer,
-      // orderstatus: this.props.orderstatus,
       loading:false
     }
   }
@@ -60,10 +93,19 @@ class SalesOrderList extends Component {
     //   this.props.loadInitialSalesOrders();
     // }
 
+  filterByOrderStatus = (status) => {
+    let newList = sampleSalesOrderRequest.filter(salesorder => {
+        return salesorder.orderstatus == status;
+    })
+    this.dataSource = ds.cloneWithRows(newList);
+  }
+
+  componentDidMount(){
+    //make XMLHTTPRequest()
+    
+  }
+
   renderInitialView() {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
-    });
     this.dataSource = ds.cloneWithRows(sampleSalesOrderRequest);
     return (
         <ListView
@@ -78,13 +120,19 @@ class SalesOrderList extends Component {
                 navigation={this.props.navigation}
                 salesorder={rowData} />
           }
-        />
-      );
+      />
+    );
   }
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style = {styles.container}>
+        <View style = {styles.buttonContainer} >
+          <AllButton style = {styles.button} />
+          <SalesPersonButton  style = {styles.button} onPress = {this.filterByOrderStatus(8)}/>
+          <SalesManagerButton style = {styles.button} onPress = {this.filterByOrderStatus(9)}/>
+          <DraftButton style = {styles.button} onPress = {this.filterByOrderStatus(1)}/>
+        </View>
         {this.renderInitialView()}
       </View>
     );

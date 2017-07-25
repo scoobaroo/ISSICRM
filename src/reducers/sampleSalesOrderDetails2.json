@@ -1,0 +1,62 @@
+[
+    {
+        "am_DesignWinPriceListItem": {
+            "Id": null,
+            "LogicalName": null,
+            "Name": null
+        },
+        "SalesOrderId": {
+            "Id": "2bd11595-17ed-e611-8eb1-000c293ddc16",
+            "LogicalName": "salesorder",
+            "Name": null
+        },
+        "ProductId": {
+            "Id": "52a28b4e-ba68-e511-86a6-2c44fd7fac90",
+            "LogicalName": "product",
+            "Name": "IS41C16100C-50TLI"
+        },
+        "Quantity": "1.0000000000",
+        "new_DeviceSPA": {
+            "Id": "56a28b4e-ba68-e511-86a6-2c44fd7fac90",
+            "LogicalName": "am_productdevicespacombination",
+            "Name": "N"
+        },
+        "PricePerUnit": {
+            "Value": "0.0000"
+        },
+        "SalesOrderDetailId": "31d11595-17ed-e611-8eb1-000c293ddc16",
+        "BaseAmount_Base": {
+            "Value": "0.0000"
+        }
+    },
+    {
+        "am_DesignWinPriceListItem": {
+            "Id": null,
+            "LogicalName": null,
+            "Name": null
+        },
+        "SalesOrderId": {
+            "Id": "2bd11595-17ed-e611-8eb1-000c293ddc16",
+            "LogicalName": "salesorder",
+            "Name": null
+        },
+        "ProductId": {
+            "Id": "d168b9c1-b468-e511-86a6-2c44fd7fac90",
+            "LogicalName": "product",
+            "Name": "BD1280816B-TR"
+        },
+        "Quantity": "11.0000000000",
+        "new_DeviceSPA": {
+            "Id": "312e92e1-b468-e511-86a6-2c44fd7fac90",
+            "LogicalName": "am_productdevicespacombination",
+            "Name": "U871B"
+        },
+        "PricePerUnit": {
+            "Value": "0.0000"
+        },
+        "SalesOrderDetailId": "33d11595-17ed-e611-8eb1-000c293ddc16",
+        "BaseAmount_Base": {
+            "Value": "0.0000"
+        }
+    }
+]

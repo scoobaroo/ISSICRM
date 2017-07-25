@@ -49,8 +49,66 @@ class SalesOrderBox extends Component {
     SalesOrderItem: <SalesOrderItem
                       navigation={navigation} />,
   })
+
   constructor(props){
     super(props);
+    this.state ={}
+  }
+  buttonStyle(){
+    if(this.props.salesorder.orderstatus==1){
+      return {
+        backgroundColor: MKColor.Green,
+        borderColor: MKColor.Green,
+        borderWidth: 10,
+        borderRadius: 10,
+        padding: 3
+      }
+    }
+    else if(this.props.salesorder.orderstatus==7){
+      return {
+        backgroundColor: MKColor.Blue,
+        borderColor: MKColor.Blue,
+        borderWidth: 10,
+        borderRadius: 10,
+        padding: 3
+      };
+    }
+    else if(this.props.salesorder.orderstatus==8){
+      return {
+        backgroundColor: MKColor.Orange,
+        borderColor: MKColor.Orange,
+        borderWidth: 10,
+        borderRadius: 10,
+        padding: 3
+      };
+    }
+    else if(this.props.salesorder.orderstatus==9){
+      return {
+        backgroundColor: MKColor.Yellow,
+        borderColor: MKColor.Yellow,
+        borderWidth: 10,
+        borderRadius: 10,
+        padding: 3
+      };
+    }
+    else if(this.props.salesorder.orderstatus==10){
+      return {
+        backgroundColor: MKColor.Blue,
+        borderColor: MKColor.Blue,
+        borderWidth: 10,
+        borderRadius: 10,
+        padding: 3
+      };
+    }
+    else if(this.props.salesorder.orderstatus==11){
+      return {
+        backgroundColor: MKColor.Teal,
+        borderColor: MKColor.Teal,
+        borderWidth: 10,
+        borderRadius: 10,
+        padding: 3
+      };
+    }
   }
   render() {
     let salesorder = this.props.salesorder;
@@ -62,7 +120,7 @@ class SalesOrderBox extends Component {
         underlayColor='black'
         activeOpacity={0.7}
         navigation = {this.props.navigation}>
-        <View style = {styles.button}>
+        <View style = {this.buttonStyle()}>
           <Text style={styles.labelText}> Sales Order ID: </Text>
           <Text style={styles.buttonText}>  {this.props.salesorder.salesorderid} </Text>
           <Text style={styles.labelText}> ISSI Sales Manager: </Text>
