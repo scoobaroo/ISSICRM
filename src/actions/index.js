@@ -1,32 +1,25 @@
-export const selectPerson = (peopleId) => {
-    return {
-        type: 'SELECTED_PERSON',
-        payload: peopleId,
-    };
-};
-
 export const noneSelected = () => {
     return {
         type: 'NONE_SELECTED',
     };
 };
 
-export const formUpdate = ({ prop, value }) => {
+export const selectOrder = (salesorderid) => {
     return {
-        type: 'FORM_UPDATE',
-        payload: { prop, value },
-    };
-};
+        type: 'SELECTED_ORDER',
+        payload: salesorderid
+    }
+}
 
-export const updateContact = (personSelected) => {
+export const loadOrders = () => {
     return {
-        type: 'UPDATE_CONTACT',
-        payload: personSelected,
+        type: 'LOAD_ORDERS'
     };
-};
+}
 
-export const loadInitialSalesOrders = () => {
+export const updateOrder = (salesorderid) => {
     return {
-        type: 'LOAD_SALES_ORDERS'
-    };
+        type: 'UPDATE_ORDER',
+        payload: salesorderid
+    }
 }

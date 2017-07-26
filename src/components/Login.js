@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
@@ -46,17 +40,24 @@ export default class Login extends Component {
       password: '',
       error: '',
       loading: false,
+      loggedIn: null
   };
 
   onButtonPress() {
     const { email, password } = this.state;
-    this.setState({error: '', loading: true});
+    this.setState({
+        email: {email},
+        password: {password},
+        error: '',
+        loading: true,
+        loggedIn: false
+    });
     var webAuth = new auth0.WebAuth({
       domain:       'issicrm.auth0.com',
       clientID:     '6ZiWpn7DbTHVzjtO071y82O2ktagE1h4'
     });
     webAuth.client.login({
-      realm: 'CRM',
+      realm: 'crm',
       username: {email},
       password: {password},
       // scope: 'openid profile',
@@ -64,12 +65,14 @@ export default class Login extends Component {
     }, function(err, authResult) {
       if (authResult) {
         // Save the tokens from the authResult in local storage or a cookie
+        alert("logged in!!");
         console.log(authResult);
         localStorage.setItem('access_token', authResult.accessToken);
         localStorage.setItem('id_token', authResult.idToken);
+        this.onAuthSuccess();
       } else if (err) {
-        // Handle errors
         console.log(err);
+        this.onAuthFailed();
       }
     });
   }
@@ -80,6 +83,7 @@ export default class Login extends Component {
         password: '',
         error: '',
         loading: false,
+        loggedIn: true
       });
   }
 
@@ -87,6 +91,7 @@ export default class Login extends Component {
       this.setState({
           error: 'Authentication Failed',
           loading: false,
+          loggedIn: false
       });
   }
 

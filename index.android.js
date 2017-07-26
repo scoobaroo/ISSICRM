@@ -12,3 +12,5 @@ const AppNavigator = StackNavigator({
 });
 
 AppRegistry.registerComponent('issicrm', () => AppNavigator);
+
+export default AppNavigator;

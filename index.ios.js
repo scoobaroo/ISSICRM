@@ -1,16 +1,21 @@
-import {
-  AppRegistry,
-} from 'react-native';
-import App from './src/components/App';
-import { StackNavigator } from 'react-navigation';
-import SalesOrderList from './src/components/SalesOrderList';
-import SalesOrderItem from './src/components/SalesOrderItem';
+  import {
+    AppRegistry,
+  } from 'react-native';
+  import App from './src/components/App';
+  import { StackNavigator } from 'react-navigation';
+  import SalesOrderList from './src/components/SalesOrderList';
+  import SalesOrderItem from './src/components/SalesOrderItem';
 
-const AppNavigator = StackNavigator({
-  SalesOrderListScreen : { screen: SalesOrderList },
-  SalesOrderItemScreen : { screen: SalesOrderItem }
-});
+  const routeConfiguration = {
+    SalesOrderList : { screen: SalesOrderList },
+    SalesOrderItem : { screen: SalesOrderItem }
+  };
+  const stackNavigatorConfiguration = {
+    initialRouteName: 'SalesOrderList'
+  }
 
-AppRegistry.registerComponent('issicrm', () => AppNavigator);
+  export const AppNavigator = StackNavigator(routeConfiguration,stackNavigatorConfiguration)
 
-export default AppNavigator;
+  AppRegistry.registerComponent('issicrm', () => AppNavigator);
+
+

@@ -13,15 +13,24 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case 'INITIAL_SALESORDER_FETCH':
+        case 'LOAD_ORDERS':
             return {
                 ...state,
-                people: action.payload,
+                salesorders: action.payload,
             }
-        case 'SELECTED_SALESORDER':
+        case 'SELECTED_ORDER':
             return {
                 ...state,
-                personSelected: action.payload
+                orderSelected: action.payload
+            }
+        case 'UPDATE_ORDER':
+            return {
+                ...state,
+                orderSelected: action.payload
+            }
+        case 'NONE_SELECTED':
+            return {
+                ...state
             }
         default:
             return state;

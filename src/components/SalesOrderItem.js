@@ -79,7 +79,7 @@ class SalesOrderItem extends Component {
   componentDidMount(){
     //make XMLHTTPRequest for sample request details set matching sales order id of sales order item
   }
-  renderInitialView() {
+  renderDetails() {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => true,
     });
@@ -119,10 +119,10 @@ class SalesOrderItem extends Component {
         <Text style={styles.labelText}> Order Status: </Text>
         <Text style={styles.baseText}> {this.props.navigation.state.params.salesorder.orderstatus} </Text>
         <View style={styles.buttonContainer}>
-          <ApprovalButton style = {styles.button} onPress ={this.approve} />
-          <RejectButton style = {styles.button} onPress ={this.reject} />
+          <ApprovalButton style = {styles.button} onPress={this.approve.bind(this)} />
+          <RejectButton style = {styles.button} onPress={this.reject.bind(this)} />
         </View>
-        {this.renderInitialView()}
+        {this.renderDetails()}
       </ScrollView>
   );
   }

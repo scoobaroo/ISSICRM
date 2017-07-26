@@ -1,39 +1,39 @@
 [
     {
         "am_DesignWinPriceListItem": {
-            "Id": null,
-            "LogicalName": null,
-            "Name": null
+            "Id": "5a5517b8-1782-e511-938e-d89d672a096c",
+            "LogicalName": "pt_designwinpricelistitem",
+            "Name": "IS45S16400J-6BLA2 (N)"
+        },
+        "ProductId" : {
+            "Id": "5a5517b8-1782-e511-938e-d89d672a096c",
+            "LogicalName": "pt_designwinpricelistitem",
+            "Name": "IS45S16400J-6BLA2 (N)"
         },
         "SalesOrderId": {
-            "Id": "2bd11595-17ed-e611-8eb1-000c293ddc16",
+            "Id": "467b8c79-9b08-4955-bb0f-502cf2121a22",
             "LogicalName": "salesorder",
             "Name": null
         },
-        "ProductId": {
-            "Id": "52a28b4e-ba68-e511-86a6-2c44fd7fac90",
-            "LogicalName": "product",
-            "Name": "IS41C16100C-50TLI"
-        },
-        "Quantity": "1.0000000000",
+        "Quantity": "348.0000000000",
         "new_DeviceSPA": {
-            "Id": "56a28b4e-ba68-e511-86a6-2c44fd7fac90",
+            "Id": "6b7912cf-0269-e511-86a6-2c44fd7fac90",
             "LogicalName": "am_productdevicespacombination",
             "Name": "N"
         },
         "PricePerUnit": {
-            "Value": "0.0000"
+            "Value": "1.1500"
         },
-        "SalesOrderDetailId": "31d11595-17ed-e611-8eb1-000c293ddc16",
+        "SalesOrderDetailId": "9d62a5d7-89a1-43f2-acc5-0000e7d230f1",
         "BaseAmount_Base": {
-            "Value": "0.0000"
+            "Value": "400.2000"
         }
     },
     {
         "am_DesignWinPriceListItem": {
-            "Id": null,
-            "LogicalName": null,
-            "Name": null
+            "Id": "d168b9c1-b468-e511-86a6-2c44fd7fac90",
+            "LogicalName": "product",
+            "Name": "BD1280816B-TR"
         },
         "SalesOrderId": {
             "Id": "2bd11595-17ed-e611-8eb1-000c293ddc16",
@@ -52,11 +52,11 @@
             "Name": "U871B"
         },
         "PricePerUnit": {
-            "Value": "0.0000"
+            "Value": "2.2000"
         },
         "SalesOrderDetailId": "33d11595-17ed-e611-8eb1-000c293ddc16",
         "BaseAmount_Base": {
-            "Value": "0.0000"
+            "Value": "24.2000"
         }
     }
 ]

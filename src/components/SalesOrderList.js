@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, ListView, NavigatorIOS } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/EvilIcons';
-import { loadInitialSalesOrders } from '../actions';
+import { loadOrders } from '../actions';
 import SalesOrderBox from './SalesOrderBox';
 import { StackNavigator } from 'react-navigation';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
@@ -84,6 +84,10 @@ class SalesOrderList extends Component {
       sampleSalesOrderRequest,
       loading:false
     }
+    // store.dispatch({
+    //   type: 'LOAD_ORDERS',
+    //   salesorders: sampleSalesOrderRequest
+    // })
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -102,10 +106,10 @@ class SalesOrderList extends Component {
 
   componentDidMount(){
     //make XMLHTTPRequest()
-    
+
   }
 
-  renderInitialView() {
+  renderView() {
     this.dataSource = ds.cloneWithRows(sampleSalesOrderRequest);
     return (
         <ListView
@@ -126,29 +130,22 @@ class SalesOrderList extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View style = {styles.container}>
-        <View style = {styles.buttonContainer} >
+      <View style = {styles.container} >
+        {/* <View style = {styles.buttonContainer} >
           <AllButton style = {styles.button} />
           <SalesPersonButton  style = {styles.button} onPress = {this.filterByOrderStatus(8)}/>
           <SalesManagerButton style = {styles.button} onPress = {this.filterByOrderStatus(9)}/>
           <DraftButton style = {styles.button} onPress = {this.filterByOrderStatus(1)}/>
-        </View>
-        {this.renderInitialView()}
+        </View> */}
+        {this.renderView()}
       </View>
     );
   }
 }
 
 const mapStateToProps = state => {
-  const salesorders = _.map(state.sampleSalesOrderRequest, (val, uid) => {
-    return { ...val, uid};
-  });
-
-  return {
-    sampleSalesOrderRequest,
-    detailView: state.detailView,
- };
+  return  {salesorers : state.sampleSalesOrderRequest};
 };
 
-// export default connect(mapStateToProps, {loadInitialSalesOrders})(SalesOrderList);
-export default SalesOrderList;
+export default connect(mapStateToProps, {loadOrders})(SalesOrderList);
+// export default SalesOrderList;

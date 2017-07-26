@@ -54,6 +54,7 @@ class SalesOrderBox extends Component {
     super(props);
     this.state ={}
   }
+
   buttonStyle(){
     if(this.props.salesorder.orderstatus==1){
       return {
@@ -93,8 +94,8 @@ class SalesOrderBox extends Component {
     }
     else if(this.props.salesorder.orderstatus==10){
       return {
-        backgroundColor: MKColor.Blue,
-        borderColor: MKColor.Blue,
+        backgroundColor: MKColor.Purple,
+        borderColor: MKColor.Purple,
         borderWidth: 10,
         borderRadius: 10,
         padding: 3
@@ -116,7 +117,7 @@ class SalesOrderBox extends Component {
     return (
       <TouchableHighlight
         onPress={() =>
-          navigate('SalesOrderItemScreen', {salesorder: salesorder})}
+          navigate('SalesOrderItem', {salesorder: salesorder})}
         underlayColor='black'
         activeOpacity={0.7}
         navigation = {this.props.navigation}>

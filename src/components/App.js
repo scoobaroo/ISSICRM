@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux'
+import { connect, Provider } from 'react-redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import Login from './Login';
 import Loader from './Loader';
 import reducers from '../reducers/SalesOrderReducer';
 import Thunk from 'redux-thunk';
-import AppNavigator from '../../index.ios'
-import { StackNavigator } from 'react-navigation';
+import AppNavigator from '../../index.ios';
+import { StackNavigator, NavigationActions } from 'react-navigation';
+import { createLogger } from 'redux-logger';
+import SalesOrderList from './SalesOrderList';
+import SalesOrderItem from './SalesOrderItem';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,17 +21,23 @@ const styles = StyleSheet.create({
   },
 });
 
+// let initialNavState = AppNavigator.router.getStateForAction(
+//   NavigationActions.init()
+// );
+
 const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
-export default class App extends Component {
+console.log(store.getState());
+
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
   state = { loggedIn: null};
 
-  renderInitialView() {
-    switch (this.state.loggedIn) {
+  renderView() {
+    switch (this.refs.Login.state.loggedIn) {
       case true:
         return <AppNavigator />
       case false:
@@ -37,14 +46,16 @@ export default class App extends Component {
         return <AppNavigator />;
     }
   }
+  
   render() {
-
     return (
       <Provider store={store}>
-          <View style={styles.container}>
-            {this.renderInitialView()}
-          </View>
+        <View style={styles.container}>
+          {this.renderView()}
+        </View>
       </Provider>
     );
   }
 }
+
+export default connect()(App);
