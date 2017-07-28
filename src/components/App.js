@@ -40,6 +40,10 @@ class App extends Component {
     this.setState(data);
   }
 
+  static navigationOptions = {
+    header: null
+  }
+
   renderView() {
     console.log("App.js Props:");
     console.log(this.props);

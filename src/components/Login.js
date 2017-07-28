@@ -22,21 +22,21 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    errorMessage: {
-        marginTop: 15,
-        fontSize: 15,
-        color: 'red',
-        alignSelf: 'center'
-    },
-    labelText :{
-        fontSize : 24,
-        paddingBottom: 20
-    }
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+},
+errorMessage: {
+    marginTop: 15,
+    fontSize: 15,
+    color: 'red',
+    alignSelf: 'center'
+},
+labelText :{
+    fontSize : 24,
+    paddingBottom: 20
+}
 });
 
 export default class Login extends Component {
@@ -96,7 +96,7 @@ export default class Login extends Component {
         this.props.navigation.navigate('App');
     }
 
-    static navigationOptions = { headerTitle: "LOGIN", header:{left:null}, headerLeft:null,  headerStyle: {display:"none"} };
+    static navigationOptions = { header: null, };
 
     render() {
         const { navigate } = this.props.navigation;
