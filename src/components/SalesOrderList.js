@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ListView, NavigatorIOS } from 'react-native';
+import { Button, Text, View, StyleSheet, ListView, NavigatorIOS } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/EvilIcons';
@@ -35,6 +35,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   contentContainer: {
     paddingBottom: 5
@@ -50,8 +52,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection:'row'
   },
+  labelText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  logoutButton : {
+    width:80,
+    height:60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'black',
+    backgroundColor: 'white'
+  },
 });
-
 
 const AllButton = MKButton.coloredButton()
   .withBackgroundColor(MKColor.Blue)
@@ -89,14 +103,15 @@ class SalesOrderList extends Component {
     //   salesorders: sampleSalesOrderRequest
     // })
   }
+  logout(){
+    console.log('logout clicked!!!!!!!!!!!!');
+    navigate('App');
+  }
 
-  static navigationOptions = ({navigation}) => ({
-    title: 'Sales Orders',
-  })
+
     // componentWillMount() {
     //   this.props.loadInitialSalesOrders();
     // }
-
   filterByOrderStatus = (status) => {
     let newList = sampleSalesOrderRequest.filter(salesorder => {
         return salesorder.orderstatus == status;
@@ -106,8 +121,17 @@ class SalesOrderList extends Component {
 
   componentDidMount(){
     //make XMLHTTPRequest()
-
+    console.log("SalesOrderList.js Props: ");
+    console.log(this.props);
+    console.log("SalesOrderList NavigationOptions: ");
+    console.log(SalesOrderList.navigationOptions);
   }
+
+  static navigationOptions = ({navigation,screenProps}) => ({
+    headerTitle: "Sales Orders",
+    headerLeft: null,
+    headerRight: <Button title="Logout" onPress = {() => navigation.navigate('App')}/>
+  })
 
   renderView() {
     this.dataSource = ds.cloneWithRows(sampleSalesOrderRequest);
@@ -131,21 +155,20 @@ class SalesOrderList extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View style = {styles.container} >
-        {/* <View style = {styles.buttonContainer} >
+         {/* <View style = {styles.buttonContainer} >
           <AllButton style = {styles.button} />
           <SalesPersonButton  style = {styles.button} onPress = {this.filterByOrderStatus(8)}/>
           <SalesManagerButton style = {styles.button} onPress = {this.filterByOrderStatus(9)}/>
           <DraftButton style = {styles.button} onPress = {this.filterByOrderStatus(1)}/>
-        </View> */}
+        </View>  */}
         {this.renderView()}
       </View>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return  {salesorers : state.sampleSalesOrderRequest};
-};
+// const mapStateToProps = state => {
+//   return  {salesorers : state.sampleSalesOrderRequest};
+// };
 
-export default connect(mapStateToProps, {loadOrders})(SalesOrderList);
-// export default SalesOrderList;
+export default SalesOrderList;

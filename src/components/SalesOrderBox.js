@@ -117,7 +117,7 @@ class SalesOrderBox extends Component {
     return (
       <TouchableHighlight
         onPress={() =>
-          navigate('SalesOrderItem', {salesorder: salesorder})}
+          navigate('SalesOrderItem', { salesorder: salesorder })}
         underlayColor='black'
         activeOpacity={0.7}
         navigation = {this.props.navigation}>

@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image, ListView, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { Button, Text, View, StyleSheet, Image, ListView, ScrollView, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import { getTheme } from 'react-native-material-kit';
 import Icon from 'react-native-vector-icons/EvilIcons';
 import * as actions from '../actions';
-import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
+import { MKTextField, MKColor, MKButton, getTheme } from 'react-native-material-kit';
 import Loader from './Loader';
 import SalesOrderDetail from './SalesOrderDetail';
 
@@ -67,18 +66,24 @@ class SalesOrderItem extends Component {
       salesorderdetail: sampleSalesOrderDetail
     };
   }
+
   approve(){
     console.log('approved!');
   }
+
   reject(){
     console.log('rejected!');
   }
-  static navigationOptions = {
+
+  static navigationOptions = ({navigation,screenProps})=>({
     title: 'Sales Order Item',
-  };
+    headerRight: <Button title="Logout" onPress = {() => navigation.navigate('App')}/>
+  })
+
   componentDidMount(){
     //make XMLHTTPRequest for sample request details set matching sales order id of sales order item
   }
+
   renderDetails() {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => true,
@@ -101,6 +106,7 @@ class SalesOrderItem extends Component {
       );
   } 
   render(){
+    const { navigate } = this.props.navigation
     return (
       <ScrollView
         contentContainerStyle={styles.container}

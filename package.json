@@ -6,6 +6,7 @@
     "postinstall": "rndebugger-open"
   },
   "dependencies": {
+    "fetchival": "^0.3.2",
     "firebase": "^3.7.3",
     "lodash": "^4.17.4",
     "react": "15.4.2",

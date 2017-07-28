@@ -25,37 +25,49 @@ const styles = StyleSheet.create({
 //   NavigationActions.init()
 // );
 
-const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
+// const store = createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(Thunk));
 
-console.log(store.getState());
+// console.log(store.getState());
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
+
   state = { loggedIn: null};
+  
+  updateState (data) {
+    this.setState(data);
+  }
 
   renderView() {
-    switch (this.refs.Login.state.loggedIn) {
+    console.log("App.js Props:");
+    console.log(this.props);
+    console.log("App.js State:");
+    console.log(this.state);
+    switch (this.state.loggedIn) {
       case true:
-        return <AppNavigator />
+        return <SalesOrderList navigation = {this.props.navigation} />
       case false:
-        return <Login />;
+        return <Login 
+                  updateAppState = {this.updateState.bind(this)}
+                  navigation = {this.props.navigation}
+                />;
       default:
-        return <AppNavigator />;
+        return <Login 
+                  updateAppState = {this.updateState.bind(this)}
+                  navigation = {this.props.navigation}
+                />;
     }
   }
   
   render() {
     return (
-      <Provider store={store}>
-        <View style={styles.container}>
-          {this.renderView()}
-        </View>
-      </Provider>
+      <View style={styles.container}>
+        {this.renderView()}
+      </View>
     );
   }
 }
 
-export default connect()(App);
+export default App;
