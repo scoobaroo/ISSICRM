@@ -1,16 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { connect, Provider } from 'react-redux';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
 import Login from './Login';
 import Loader from './Loader';
 import reducers from '../reducers/SalesOrderReducer';
-import Thunk from 'redux-thunk';
 import AppNavigator from '../../index.ios';
 import { StackNavigator, NavigationActions } from 'react-navigation';
-import { createLogger } from 'redux-logger';
 import SalesOrderList from './SalesOrderList';
 import SalesOrderItem from './SalesOrderItem';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
 
 // console.log(store.getState());
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
   }
@@ -73,5 +71,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

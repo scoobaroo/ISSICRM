@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { MKTextField, MKColor, MKButton } from 'react-native-material-kit';
 import Loader from './Loader';
-import Auth0 from 'react-native-auth0';
-import credentials from './auth0-credentials';
+import axios from 'axios';
+
 const LoginButton = MKButton.coloredButton()
     .withText('LOGIN')
     .build();
@@ -22,21 +22,21 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-},
-errorMessage: {
-    marginTop: 15,
-    fontSize: 15,
-    color: 'red',
-    alignSelf: 'center'
-},
-labelText :{
-    fontSize : 24,
-    paddingBottom: 20
-}
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    errorMessage: {
+        marginTop: 15,
+        fontSize: 15,
+        color: 'red',
+        alignSelf: 'center'
+    },
+    labelText :{
+        fontSize : 24,
+        paddingBottom: 20
+    }
 });
 
 export default class Login extends Component {
@@ -44,7 +44,7 @@ export default class Login extends Component {
         super(props);
     }
     state = {
-        email: '',
+        username: '',
         password: '',
         error: '',
         loading: false,
@@ -52,27 +52,32 @@ export default class Login extends Component {
     };
 
     onButtonPress() {
-        const { email, password } = this.state;
+        const { username, password } = this.state;
         this.setState({
-            email: email.toString(),
-            password: password.toString(),
             error: '',
             loading: true,
             loggedIn: false
         });
-        console.log('Logins navigationOptions');
-        console.log(Login.navigationOptions);
         this.onAuthSuccess();
-        const auth0 = new Auth0({ domain: 'issicrm.auth0.com', clientId: '6ZiWpn7DbTHVzjtO071y82O2ktagE1h4' });
-        // auth0
-        //     .auth
-        //     .passwordRealm({username: {email}, password: {password}, realm: "urn:auth0:issicrm"})
-        //     .then(authResult =>
-        //         console.log(authResult)
-        //     )
-        //     .catch(error =>
-        //         console.error(error)
-        //     )
+        // let config = {
+        //     headers : {
+        //         "Accept" : "application/json",
+        //         "Content-type" : "application/json; charset=utf-8"
+        //     }
+        // }
+        // axios.post('https://crmdev.issi.com/XRMServices/2011/OrganizationData.svc', {
+        //     username : {username},
+        //     password : {password},
+        // }, config)
+        // .then(function (response) {
+        //     console.log(response);
+        //     console.log('successfully authenticated');
+        //     this.onAuthSuccess();
+        // })
+        // .catch(function (error) {
+        //     console.log('there was an error');
+        //     console.log(error);
+        // });
     }
 
     onAuthSuccess() {
@@ -96,19 +101,23 @@ export default class Login extends Component {
         this.props.navigation.navigate('App');
     }
 
-    static navigationOptions = { header: null, };
-
     render() {
         const { navigate } = this.props.navigation;
         const { form, fieldStyles, loginButtonArea, errorMessage, welcome, container } = styles;
         return (
         <View style={styles.container}>
+            <View style = {{paddingBottom: 15}}>
+                <Image
+                    style={{width: 100, height: 70}}
+                    source={require('../images/logo.png')}
+                />
+            </View>
             <Text style = {styles.labelText} >Login to ISSI CRM</Text>
             <MKTextField
-                text={this.state.email}
-                onTextChange={email => this.setState({ email })}
+                text={this.state.username}
+                onTextChange={username => this.setState({ username })}
                 textInputStyle={fieldStyles}
-                placeholder={'Email...'}
+                placeholder={'Username...'}
                 tintColor={MKColor.Teal}
             />
             <MKTextField
