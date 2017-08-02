@@ -170,7 +170,7 @@ Xrm.CRMAuth.GetHeaderOnPremise = function (url, username, password) {
     var authentication = {};
     var request = xml.join('');
     var req = new XMLHttpRequest();
-    req.open('POST', usernamemixed, false);
+    req.open('POST', usernamemixed, true);
     req.setRequestHeader('Connection', 'Keep-Alive');
     req.setRequestHeader('Content-Type', 'application/soap+xml; charset=UTF-8');
     req.onreadystatechange = function () {
@@ -281,23 +281,24 @@ Xrm.CRMAuth.CreateSOAPHeaderOnPremise = function (url, keyIdentifer, token0, tok
 /// <param name="url" type="String">The Url of the CRM On Premise (IFD) organization (https://org.domain.com).</param>
 /// <returns type="String">The AD FS server url.</returns>
 Xrm.CRMAuth.GetADFS = function (url) {
-    var adfsUrl = null;
-    var req = new XMLHttpRequest();
-    req.open('GET', url + '/XrmServices/2011/Organization.svc?wsdl=wsdl0', true);
-    req.setRequestHeader('Connection', 'Keep-Alive');
-    req.setRequestHeader('Content-Type', 'application/soap+xml; charset=UTF-8');
-    req.onreadystatechange = function () {
-        if (req.readyState === 4) {
-            if (req.status === 200) {
-                console.log("readyState:" + req.readyState);
-                console.log("status: " + req.status);
-                adfsUrl = $(req.response).find('ms-xrm\\:Identifier');
-                return $(adfsUrl[0]).text().replace('http://', 'https://');
-            }
-        }
-    };
-    req.send();
-    return $(adfsUrl[0]).text().replace('http://', 'https://');
+    // var adfsUrl = null;
+    // var req = new XMLHttpRequest();
+    // req.open('GET', url + '/XrmServices/2011/Organization.svc?wsdl=wsdl0', true);
+    // req.setRequestHeader('Connection', 'Keep-Alive');
+    // req.setRequestHeader('Content-Type', 'application/soap+xml; charset=UTF-8');
+    // req.onreadystatechange = function () {
+    //     if (req.readyState === 4) {
+    //         if (req.status === 200) {
+    //             console.log("readyState:" + req.readyState);
+    //             console.log("status: " + req.status);
+    //             adfsUrl = $(req.response).find('ms-xrm\\:Identifier');
+    //             return $(adfsUrl[0]).text().replace('http://', 'https://');
+    //         }
+    //     }
+    // };
+    // req.send();
+    // return $(adfsUrl[0]).text().replace('http://', 'https://');
+    return 'https://adfs.issi.com/adfs/services/trust/'
 };
 
 /// <summary>Creates a GUID.</summary>

@@ -60,11 +60,10 @@ export default class Login extends Component {
             loggedIn: false
         });
         var domain = 'issi';
-        var url = "https://crmdev.issi.com";
+        var url = "https://crmdev.issi.com/";
         var formUsername = {username};
         var formPassword = {password};
         var CRMSoapAuthentication = Xrm.CRMAuth.GetHeaderOnPremise(url, domain, formUsername, formPassword);
-
         var body = [];
         body.push('<s:Body>');
         body.push('<Execute xmlns="http://schemas.microsoft.com/xrm/2011/Contracts/Services">');
@@ -85,22 +84,28 @@ export default class Login extends Component {
         req.open("POST", url + "XRMServices/2011/Organization.svc", true);
         req.setRequestHeader("Content-Type", "application/soap+xml; charset=utf-8");
         req.onreadystatechange = function () {
+            console.log("in onreadystatechange");
             if (req.readyState === 4) {
+                console.log(req);
+                console.log(req.status);
                 if (req.status === 200) {
                     //Handle the response
+                    console.log("RESPONSE: ")
+                    console.log(req);
                     this.onAuthSuccess();
                 }
             } else {
                 //Error
+                console.log(req);
                 this.onAuthFailed();
             }
         };
-        let config = {
-            headers: {
-                "Content-Type":  "application/soap+xml; charset=utf-8"
-            }
-        }
         req.send(request);
+        // let config = {
+        //     headers: {
+        //         "Content-Type":  "application/soap+xml; charset=utf-8"
+        //     }
+        // }
         // axios.post(url + "XRMServices/2011/Organization.svc",request,config)
         // .then(function(response){
         //     console.log(response);
@@ -108,7 +113,6 @@ export default class Login extends Component {
         // .catch(function(err){
         //     console.log(err);
         // })
-        this.onAuthSuccess();
     }
 
     onAuthSuccess() {
